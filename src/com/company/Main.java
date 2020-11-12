@@ -52,7 +52,7 @@ public class Main {
         }
         return b;
     }
-    public static long fibMatrix(long x) {
+    public static long fibMatrix(long x) {                          // Start of fibonacci matrix function
         long exponential = x - 1;
         long[][] expMatrix = new long[][]{{1, 1}, {1, 0}};
         long[][] resultMatrix = new long[][]{{1, 0}, {0, 1}};
@@ -87,31 +87,31 @@ public class Main {
         long maxRunTime = 240000000L;
         long endFibRecurRunTime = 0;
         int maxFibRecurLoops = 100;
-        long[] fibRecurTime = new long[93];
-        long[] fibCacheTime = new long[93];
-        long[] fibLoopTime = new long[93];
-        long[] fibMatrixTime = new long[93];
-        int numberLoops = 1000;
+        long[] fibRecurTime = new long[93];                         //Keeps the times for fibRecur
+        long[] fibCacheTime = new long[93];                         //Keeps the times for fibCache
+        long[] fibLoopTime = new long[93];                          //Keeps the times for fibLoop
+        long[] fibMatrixTime = new long[93];                        //Keeps the times for fibMatrix
+        int numberLoops = 1000;                                     // the number of loops for to run
 
         System.out.printf("FibRecur\n");
         System.out.printf("| %10s| %10s| %22s| %15s| %10s| %10s|\n", "N", "X", "Fib(x)", "Time", "DRation", "Exp DRatio");
-        for (N = 1; N < 10; N++) {
+        for (N = 1; N < 10; N++) {                                  //Nested loops that will run through Fibrecur
             for (x = (int) Math.pow(2, (double) N - 1); x < Math.pow(2, N) && x < 93; x++) {
 
-                if (endFibRecurRunTime < maxRunTime) {
+                if (endFibRecurRunTime < maxRunTime) {              //runs until max time is reached
                     if (x > 0 && x % 10 == 0) {
                         maxFibRecurLoops -= 20;
                     }
                     for (y = 0; y < maxFibRecurLoops; y++) {
                         startTime = getCpuTime();
-                        resultTime = fibRecur(x);
+                        resultTime = fibRecur(x);                   //Measures the time the function takes
                         endTime = getCpuTime();
                         fibRecurTime[x] += endTime - startTime;
                     }
                     fibRecurTime[x] = fibRecurTime[x] / maxFibRecurLoops;
                     endFibRecurRunTime = fibRecurTime[x];
                     System.out.printf("| %10s| %10s| %22s| %15s|", N, x, resultTime, fibRecurTime[x]);
-                    if (x != 0 && x % 2 == 0) {
+                    if (x != 0 && x % 2 == 0) {                         //Only prints ratios if an even number
                         float doubling = (float) fibRecurTime[x] / fibRecurTime[x / 2];
                         double expectedDoubling = Math.pow(2, N / 2) / Math.pow(2, N / 2 / 2);
                         System.out.printf(" %10.2f| %10.2f|\n", doubling, expectedDoubling);
@@ -123,17 +123,17 @@ public class Main {
         }
         System.out.printf("FibCache\n");
         System.out.printf("| %10s| %10s| %22s| %15s| %10s| %10s|\n", "N", "X", "Fib(x)", "Time", "DRation", "Exp DRatio");
-        for (N = 1; N < 10; N++) {
+        for (N = 1; N < 10; N++) {                                  //Nested loops that will run through FibCache
             for (x = (int) Math.pow(2, (double) N - 1); x < Math.pow(2, N) && x < 93; x++) {
-                for (y = 0; y < numberLoops; y++) {
+                for (y = 0; y < numberLoops; y++) {                 //runs until max loops are reached
                     startTime = getCpuTime();
-                    resultTime = fibCache(x);
+                    resultTime = fibCache(x);                       //Measures the time the function take
                     endTime = getCpuTime();
                     fibCacheTime[x] += endTime - startTime;
                 }
                 fibCacheTime[x] = fibCacheTime[x] / numberLoops;
                 System.out.printf("| %10s| %10s| %22s| %15s|", N, x, resultTime, fibCacheTime[x]);
-                if (x != 0 && x % 2 == 0) {
+                if (x != 0 && x % 2 == 0) {                         //Only prints ratios if an even number
                     float doubling = (float) fibCacheTime[x] / fibCacheTime[x / 2];
                     double expectedDoubling = 2;
                     System.out.printf(" %10.2f| %10.2f|\n", doubling, expectedDoubling);
@@ -144,17 +144,17 @@ public class Main {
         }
         System.out.printf("FibLoop\n");
         System.out.printf("| %10s| %10s| %22s| %15s| %10s| %10s|\n", "N", "X", "Fib(x)", "Time", "DRation", "Exp DRatio");
-        for (N = 1; N < 10; N++) {
+        for (N = 1; N < 10; N++) {                                  //Nested loops that will run through FibLoop
             for (x = (int) Math.pow(2, (double) N - 1); x < Math.pow(2, N) && x < 93; x++) {
-                for (y = 0; y < numberLoops; y++) {
+                for (y = 0; y < numberLoops; y++) {                 //runs until max loops are reached
                     startTime = getCpuTime();
-                    resultTime = fibLoop(x);
+                    resultTime = fibLoop(x);                        //Measures the time the function take
                     endTime = getCpuTime();
                     fibLoopTime[x] += endTime - startTime;
                 }
                 fibLoopTime[x] = fibLoopTime[x] / numberLoops;
                 System.out.printf("| %10s| %10s| %22s| %15s|", N, x, resultTime, fibLoopTime[x]);
-                if (x != 0 && x % 2 == 0) {
+                if (x != 0 && x % 2 == 0) {                         //Only prints ratios if an even number
                     float doubling = (float) fibLoopTime[x] / fibLoopTime[x / 2];
                     double expectedDoubling = 2;
                     System.out.printf(" %10.2f| %10.2f|\n", doubling, expectedDoubling);
@@ -165,17 +165,17 @@ public class Main {
         }
         System.out.printf("FibMatrix\n");
         System.out.printf("| %10s| %10s| %22s| %15s| %10s| %10s|\n", "N", "X", "Fib(x)", "Time", "DRation", "Exp DRatio");
-        for (N = 1; N < 10; N++) {
+        for (N = 1; N < 10; N++) {                                  //Nested loops that will run through FibMatrix
             for (x = (int) Math.pow(2, (double) N - 1); x < Math.pow(2, N) && x < 93; x++) {
-                for (y = 0; y < numberLoops; y++) {
+                for (y = 0; y < numberLoops; y++) {                 //runs until max loops are reached
                     startTime = getCpuTime();
-                    resultTime = fibMatrix(x);
+                    resultTime = fibMatrix(x);                      //Measures the time the function take
                     endTime = getCpuTime();
                     fibMatrixTime[x] += endTime - startTime;
                 }
                 fibMatrixTime[x] = fibMatrixTime[x] / numberLoops;
                 System.out.printf("| %10s| %10s| %22s| %15s|", N, x, resultTime, fibMatrixTime[x]);
-                if (x != 0 && x % 2 == 0) {
+                if (x != 0 && x % 2 == 0) {                         //Only prints ratios if an even number
                     float doubling = (float) fibMatrixTime[x] / fibMatrixTime[x / 2];
                     double expectedDoubling = (Math.log(N)/Math.log(2)) / (Math.log(N/2)/Math.log(2));
                     System.out.printf(" %10.2f| %10.2f|\n", doubling, expectedDoubling);
@@ -196,6 +196,6 @@ public class Main {
     }
     public static void main(String[] args)
     {
-        RunTimeTests();
+        RunTimeTests();                                             //Calls the runtime function
     }
 }
